@@ -33,5 +33,28 @@ namespace VueAPI.Controllers
 
             return Ok(nationalParks);
         }
+
+        [HttpGet("{nationalParkId:int}")]
+        public IActionResult GetNationalPark(int nationaParkId)
+        {
+            var park = _npRepo.GetNationalPark(nationaParkId);
+            if (park == null)
+            {
+                return NotFound();
+            }
+            var parkDto = _mapper.Map<NationalParkDto>(park);
+            return Ok(parkDto);
+        }
+
+        [HttpPost]
+        public IActionResult CreateNationalPark([FromBody]NationalParkDto nationalParkDto )
+        {
+            if (nationalParkDto == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            return Ok(parkDto);
+        }
     }
 }
