@@ -17,11 +17,11 @@
         </thead>
         <tbody>
             <tr v-for="park of parks" v-bind:key="park">
-                <td>{{ park.Id }}</td>
-                <td>{{ park.Name }}</td>
-                <td>{{ park.State }}</td>
-                <td>{{ park.Created }}</td>
-                <td>{{ park.Established }}</td>
+                <td>{{ park.id }}</td>
+                <td>{{ park.name }}</td>
+                <td>{{ park.state }}</td>
+                <td>{{ park.created }}</td>
+                <td>{{ park.established }}</td>
             </tr>
         </tbody>
     </table>
@@ -41,7 +41,8 @@
             getNationalParks() {
                 axios.get('/nationalparks')
                     .then((response) => {
-                        this.parks =  response.data;
+                        this.parks = response.data;
+                        console.log(this.parks[0])
                     })
                     .catch(function (error) {
                         alert(error);
