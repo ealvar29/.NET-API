@@ -4,7 +4,7 @@
     <p>This component demonstrates fetching National Parks from the C# server.</p>
 
     <p v-if="!parks"><em>Loading...</em></p>
-
+    <button v-on:click="this.createPark">Click to add new park</button>
     <table class='table table-striped' aria-labelledby="tableLabel" v-if="parks">
         <thead>
             <tr>
@@ -20,8 +20,8 @@
                 <td>{{ park.id }}</td>
                 <td>{{ park.name }}</td>
                 <td>{{ park.state }}</td>
-                <td>{{ park.created }}</td>
-                <td>{{ park.established }}</td>
+                <td>{{ getHumanDate(park.created) }}</td>
+                <td>{{ getHumanDate(park.established) }}</td>
             </tr>
         </tbody>
     </table>
@@ -30,24 +30,44 @@
 
 <script>
     import axios from 'axios'
+    import moment from 'moment'
     export default {
         name: "FetchParks",
         data() {
             return {
-                parks: []
+                parks: [],
+                park: {
+
+                }
             }
         },
         methods: {
-            getNationalParks() {
-                axios.get('/nationalparks')
-                    .then((response) => {
-                        this.parks = response.data;
-                        console.log(this.parks[0])
-                    })
-                    .catch(function (error) {
-                        alert(error);
-                    });
+          async getNationalParks() {
+                const response = await axios.get('/nationalparks');
+                this.parks = response.data;
+            },
+            createPark() {
+            // Simple POST request with a JSON body using axios
+                const article = {
+                    "name": "ILL",
+                    "state": "Illinois",
+                    "created": "2019-12-09",
+                    "established": "2019-12-08"
+                };
+                console.log(article)
+                axios.post("/nationalparks", article)
+                    .then(response => {
+                        console.log(response);
+                        console.log('Submit Success');
+                        this.getNationalParks();
+                }).catch(e => {
+                    console.log(e);
+                });
+            },
+            getHumanDate(date) {
+                return moment(date, 'YYYY-MM-DD').format('MM/DD/YYYY');
             }
+
         },
         mounted() {
             this.getNationalParks();

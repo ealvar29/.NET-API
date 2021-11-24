@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using VueAPI.Models;
 using VueAPI.Models.Dtos;
 using VueAPI.Repository.IRepository;
 
@@ -53,8 +54,23 @@ namespace VueAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
+            if (_npRepo.NationalParkExists(nationalParkDto.Name))
+            {
+                ModelState.AddModelError("", "National Park exists!");
+                return StatusCode(404, ModelState);
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            return Ok(parkDto);
+            var nationalParkObject = _mapper.Map<NationalPark>(nationalParkDto);
+            if (!_npRepo.CreateNationalPark(nationalParkObject))
+            {
+                ModelState.AddModelError("", $"Something went wrong when saving the record {nationalParkObject.Name}");
+                return StatusCode(500, ModelState);
+            }
+            return Ok(nationalParkObject);
         }
     }
 }
