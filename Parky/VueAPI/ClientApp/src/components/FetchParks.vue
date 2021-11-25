@@ -4,7 +4,26 @@
     <p>This component demonstrates fetching National Parks from the C# server.</p>
 
     <p v-if="!parks"><em>Loading...</em></p>
-    <button v-on:click="this.createPark">Click to add new park</button>
+
+    <form class="review-form" @submit.prevent="onSubmit">
+        <label for="name">Name of National Park:</label>
+        <input id="name" v-model="name">
+
+        <label for="created">State:</label>
+        <input id="created" v-model="state">
+
+        <label for="created">Date Created:</label>
+        <input id="created" type="date" v-model="created">
+
+        <label for="established">Date established:</label>
+        <input id="established" type="date" v-model="established">
+
+        <input class="button" type="submit" value="Submit">
+    </form>
+    <p>{{name}}</p>
+    <p>{{state}}</p>
+    <p>{{created}}</p>
+    <p>{{established}}</p>
     <table class='table table-striped' aria-labelledby="tableLabel" v-if="parks">
         <thead>
             <tr>
@@ -36,12 +55,34 @@
         data() {
             return {
                 parks: [],
-                park: {
-
-                }
+                name: '',
+                state: '',
+                created: null,
+                established: null
             }
         },
         methods: {
+            onSubmit() {
+                let newPark = {
+                    name: this.name,
+                    state: this.state,
+                    created: this.created,
+                    established: this.established
+                }
+                axios.post("/nationalparks", newPark)
+                    .then(response => {
+                        console.log(response);
+                        console.log('Submit Success');
+                        this.getNationalParks();
+                    }).catch(e => {
+                        console.log(e);
+                    });
+                this.$emit('', newPark);
+                this.name = '';
+                this.state = '';
+                this.created = null;
+                this.established = null;
+            },
           async getNationalParks() {
                 const response = await axios.get('/nationalparks');
                 this.parks = response.data;
