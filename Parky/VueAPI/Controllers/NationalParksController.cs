@@ -35,7 +35,7 @@ namespace VueAPI.Controllers
             return Ok(nationalParks);
         }
 
-        [HttpGet("{nationalParkId:int}")]
+        [HttpGet("{nationalParkId:int}", Name = "GetNationalPark")]
         public IActionResult GetNationalPark(int nationaParkId)
         {
             var park = _npRepo.GetNationalPark(nationaParkId);
@@ -48,7 +48,7 @@ namespace VueAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateNationalPark([FromBody]NationalParkDto nationalParkDto )
+        public IActionResult CreateNationalPark([FromBody] NationalParkDto nationalParkDto)
         {
             if (nationalParkDto == null)
             {
@@ -70,7 +70,41 @@ namespace VueAPI.Controllers
                 ModelState.AddModelError("", $"Something went wrong when saving the record {nationalParkObject.Name}");
                 return StatusCode(500, ModelState);
             }
-            return Ok(nationalParkObject);
+            return CreatedAtRoute("GetNationalPark", new { nationalParkId = nationalParkObject.Id }, nationalParkObject);
+        }
+
+        [HttpPatch("{nationalParkId:int}", Name = "UpdateNationalPark")]
+        public IActionResult UpdateNationalPark(int nationalParkId, [FromBody] NationalParkDto nationalParkDto)
+        {
+            if (nationalParkDto == null || nationalParkId != nationalParkDto.Id)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var nationalParkObject = _mapper.Map<NationalPark>(nationalParkDto);
+            if (!_npRepo.UpdateNationalPark(nationalParkObject))
+            {
+                ModelState.AddModelError("", $"Something went wrong when updating the record {nationalParkObject.Name}");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
+        }
+
+        [HttpDelete("{nationalParkId:int}", Name = "DeleteNationalPark")]
+        public IActionResult DeleteNationalPark(int nationalParkId, [FromBody] NationalParkDto nationalParkDto)
+        {
+            if (!_npRepo.NationalParkExists(nationalParkId))
+            {
+                return NotFound();
+            }
+
+            var nationalParkObject = _npRepo.GetNationalPark(nationalParkId);
+            if (!_npRepo.DeleteNationalPark(nationalParkObject))
+            {
+                ModelState.AddModelError("", $"Something went wrong when removing the record {nationalParkObject.Name}");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
     }
 }
