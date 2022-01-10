@@ -143,14 +143,14 @@
             },
             deletePark(parkId) {
                 console.log(parkId);
-                axios.delete(`/nationalparks/${parkId}`)
+                axios.delete(`/nationalparks/1`)
                     .then(response => {
                         console.log(response);
                         console.log('Submit Success');
-                        this.getNationalParks();
                     }).catch(e => {
                         console.log(e);
                     });
+                this.getNationalParks();
             }
         },
         mounted() {

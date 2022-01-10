@@ -34,6 +34,14 @@ namespace VueAPI
                 (options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<INationalParkReposity, NationalParkRepository>();
             services.AddAutoMapper(typeof(ParkyMappings));
+            services.AddSwaggerGen(options => {
+                options.SwaggerDoc("ParkyOpenAPISpec",
+                 new Microsoft.OpenApi.Models.OpenApiInfo()
+                 {
+                     Title = "Parky API",
+                     Version = "1"
+                 });
+            });
             services.AddControllers();
             services.AddSpaStaticFiles(configuration =>
             {
@@ -48,7 +56,11 @@ namespace VueAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/ParkyOpenAPISpec/swagger.json", "Parky API");
+            });
             app.UseRouting();
             app.UseSpaStaticFiles();
             app.UseAuthorization();

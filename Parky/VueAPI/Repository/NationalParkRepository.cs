@@ -34,7 +34,7 @@ namespace VueAPI.Repository
 
         public ICollection<NationalPark> GetNationalParks()
         {
-            return _db.NationalParks.OrderBy(x => x.Name).ToList();
+            return _db.NationalParks.OrderBy(x => x.Id).ToList();
         }
 
         public bool NationalParkExists(string name)
