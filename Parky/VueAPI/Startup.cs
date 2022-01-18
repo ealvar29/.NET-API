@@ -8,7 +8,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using VueAPI.Data;
 using VueAPI.Mapper;
@@ -41,6 +43,9 @@ namespace VueAPI
                      Title = "Parky API",
                      Version = "1"
                  });
+                var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
+                options.IncludeXmlComments(cmlCommentsFullPath);
             });
             services.AddControllers();
             services.AddSpaStaticFiles(configuration =>

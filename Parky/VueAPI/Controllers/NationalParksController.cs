@@ -22,6 +22,10 @@ namespace VueAPI.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Get list of national parks.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult GetNationalParks()
         {
@@ -35,6 +39,11 @@ namespace VueAPI.Controllers
             return Ok(nationalParks);
         }
 
+        /// <summary>
+        /// Get individual nation park
+        /// </summary>
+        /// <param name="nationaParkId">The Id of the national park</param>
+        /// <returns></returns>
         [HttpGet("{nationalParkId:int}", Name = "GetNationalPark")]
         public IActionResult GetNationalPark(int nationaParkId)
         {
