@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31911.196
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.31911.260
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkyAPI", "ParkyAPI\ParkyAPI.csproj", "{4F22931F-2518-4B55-9E64-BD6891AAC446}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VueAPI", "VueAPI\VueAPI.csproj", "{A7856C38-9426-4FC7-BE64-C137C92D76B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VueAPI", "VueAPI\VueAPI.csproj", "{A7856C38-9426-4FC7-BE64-C137C92D76B7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B51B5621-B956-4A63-927E-08D7E2F975B0}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -41,7 +41,8 @@ namespace VueAPI
                  new Microsoft.OpenApi.Models.OpenApiInfo()
                  {
                      Title = "Parky API",
-                     Version = "1"
+                     Version = "1",
+                     Description = "Udemy Parky API with .NET 5 + Vue.js 3.0"
                  });
                 var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
