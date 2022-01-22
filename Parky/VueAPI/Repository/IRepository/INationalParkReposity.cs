@@ -3,7 +3,7 @@ using VueAPI.Models;
 
 namespace VueAPI.Repository.IRepository
 {
-    public interface INationalParkReposity
+    public interface INationalParkRepository
     {
         ICollection<NationalPark> GetNationalParks();
 

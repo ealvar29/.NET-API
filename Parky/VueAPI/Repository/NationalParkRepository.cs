@@ -6,7 +6,7 @@ using VueAPI.Repository.IRepository;
 
 namespace VueAPI.Repository
 {
-    public class NationalParkRepository : INationalParkReposity
+    public class NationalParkRepository : INationalParkRepository
     {
         private readonly ApplicationDbContext _db;
 
