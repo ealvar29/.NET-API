@@ -9,17 +9,17 @@ using VueAPI.Repository.IRepository;
 namespace VueAPI.Controllers
 {
     //[Route("api/[controller]")]
-    [Route("[controller]")]
+    [Route("api/Trails")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class TrailsController : Controller
     {
-        private INationalParkRepository _npRepo;
+        private ITrailRepository _trailRepo;
         private readonly IMapper _mapper;
 
-        public TrailsController(INationalParkRepository npRepo, IMapper mapper)
+        public TrailsController(ITrailRepository trailRepo, IMapper mapper)
         {
-            _npRepo = npRepo;
+            _trailRepo = trailRepo;
             _mapper = mapper;
         }
 
@@ -31,7 +31,7 @@ namespace VueAPI.Controllers
         [ProducesResponseType(200, Type = typeof(List<NationalParkDto>))]
         public IActionResult GetNationalParks()
         {
-            var nationalParks = _npRepo.GetNationalParks();
+            var nationalParks = _trailRepo.GetTrails();
             var nationalParksDto = new List<NationalParkDto>();
             foreach (var park in nationalParksDto)
             {
