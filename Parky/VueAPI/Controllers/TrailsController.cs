@@ -12,12 +12,12 @@ namespace VueAPI.Controllers
     [Route("[controller]")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public class NationalParksController : Controller
+    public class TrailsController : Controller
     {
         private INationalParkRepository _npRepo;
         private readonly IMapper _mapper;
 
-        public NationalParksController(INationalParkRepository npRepo, IMapper mapper)
+        public TrailsController(INationalParkRepository npRepo, IMapper mapper)
         {
             _npRepo = npRepo;
             _mapper = mapper;

@@ -5,9 +5,11 @@ namespace VueAPI.Repository.IRepository
 {
     public interface ITrailRepository
     {
-        ICollection<Trail> GetNationalParks();
+        ICollection<Trail> GetTrails();
 
-        Trail GetTrail(int TrailId);
+        ICollection<Trail> GetTrailsInNationalPark(int npId);
+
+        Trail GetTrail(int trailId);
 
         bool TrailExists(string name);
 

@@ -34,7 +34,8 @@ namespace VueAPI
         {
             services.AddDbContext<ApplicationDbContext>
                 (options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<INationalParkReposity, NationalParkRepository>();
+            services.AddScoped<INationalParkRepository, NationalParkRepository>();
+            services.AddScoped<INationalParkRepository, NationalParkRepository>();
             services.AddAutoMapper(typeof(ParkyMappings));
             services.AddSwaggerGen(options => {
                 options.SwaggerDoc("ParkyOpenAPISpec",

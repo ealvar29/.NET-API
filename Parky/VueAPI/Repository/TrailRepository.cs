@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using VueAPI.Data;
 using VueAPI.Models;
@@ -29,12 +30,12 @@ namespace VueAPI.Repository
 
         public Trail GetTrail(int trailId)
         {
-            return _db.Trails.FirstOrDefault(x => x.Id == trailId);
+            return _db.Trails.Include(x => x.NationalPark).FirstOrDefault(x => x.Id == trailId);
         }
 
         public ICollection<Trail> GetTrails()
         {
-            return _db.Trails.OrderBy(x => x.Id).ToList();
+            return _db.Trails.Include(x => x.NationalPark).OrderBy(x => x.Id).ToList();
         }
 
         public bool TrailExists(string name)
@@ -58,6 +59,11 @@ namespace VueAPI.Repository
         {
             _db.Trails.Update(trail);
             return Save();
+        }
+
+        public ICollection<Trail> GetTrailsInNationalPark(int npId)
+        {
+            return _db.Trails.Include(x => x.NationalPark).Where(x => x.NationalParkId == npId).ToList();
         }
     }
 }
