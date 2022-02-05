@@ -9,6 +9,8 @@ namespace VueAPI.Mapper
         public ParkyMappings()
         {
             CreateMap<NationalPark, NationalParkDto>().ReverseMap();
+            CreateMap<Trail, TrailDto>().ReverseMap();
+            CreateMap<Trail, TrailUpsertDto>().ReverseMap();
         }
     }
 }
