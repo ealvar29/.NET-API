@@ -11,6 +11,7 @@ namespace VueAPI.Controllers
     //[Route("api/[controller]")]
     [Route("api/NationalParks")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "ParkyOpenAPISpecNP")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class NationalParksController : Controller
     {

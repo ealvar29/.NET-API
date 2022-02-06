@@ -38,12 +38,20 @@ namespace VueAPI
             services.AddScoped<ITrailRepository, TrailRepository>();
             services.AddAutoMapper(typeof(ParkyMappings));
             services.AddSwaggerGen(options => {
-                options.SwaggerDoc("ParkyOpenAPISpec",
+                options.SwaggerDoc("ParkyOpenAPISpecNP",
                  new Microsoft.OpenApi.Models.OpenApiInfo()
                  {
-                     Title = "Parky API",
+                     Title = "Parky NationalPark API",
                      Version = "1",
-                     Description = "Udemy Parky API with .NET 5 + Vue.js 3.0"
+                     Description = "Swagger UI for NationalPark"
+                 });
+
+                options.SwaggerDoc("ParkyOpenAPISpecTrails",
+                 new Microsoft.OpenApi.Models.OpenApiInfo()
+                 {
+                     Title = "Parky Trails API",
+                     Version = "1",
+                     Description = "Swagger UI for Trails"
                  });
                 var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
@@ -66,7 +74,8 @@ namespace VueAPI
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/ParkyOpenAPISpec/swagger.json", "Parky API");
+                options.SwaggerEndpoint("/swagger/ParkyOpenAPISpecNP/swagger.json", "Parky National Park API");
+                options.SwaggerEndpoint("/swagger/ParkyOpenAPISpecTrails/swagger.json", "Parky Trails API");
             });
             app.UseRouting();
             app.UseSpaStaticFiles();
