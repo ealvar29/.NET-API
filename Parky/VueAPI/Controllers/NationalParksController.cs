@@ -9,7 +9,7 @@ using VueAPI.Repository.IRepository;
 namespace VueAPI.Controllers
 {
     //[Route("api/[controller]")]
-    [Route("[controller]")]
+    [Route("api/NationalParks")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class NationalParksController : Controller

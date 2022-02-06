@@ -3,10 +3,8 @@ using static VueAPI.Models.Trail;
 
 namespace VueAPI.Models.Dtos
 {
-    public class TrailDto
+    public class TrailCreateDto
     {
-        public int Id { get; set; }
-
         [Required]
         public string Name { get; set; }
 
@@ -17,7 +15,5 @@ namespace VueAPI.Models.Dtos
 
         [Required]
         public int NationalParkId { get; set; }
-
-        public NationalParkDto NationalPark { get; set; }
     }
 }

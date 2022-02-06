@@ -41,7 +41,7 @@ namespace VueAPI.Repository
         public bool TrailExists(string name)
         {
             //Might need to update this to .Any(x => x.Name.ToLower().Trim() == name.ToLower().Trim());
-            bool value = _db.Trails.Any(x => x.Name == name);
+            bool value = _db.Trails.Any(x => x.Name.ToLower().Trim() == name.ToLower().Trim());
             return value;
         }
 

@@ -3,7 +3,7 @@ using static VueAPI.Models.Trail;
 
 namespace VueAPI.Models.Dtos
 {
-    public class TrailDto
+    public class TrailUpdateDto
     {
         public int Id { get; set; }
 
