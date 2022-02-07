@@ -117,7 +117,7 @@
                 this.established = null;
             },
           async getNationalParks() {
-                const response = await axios.get('/nationalparks');
+                const response = await axios.get('/api/nationalparks');
                 this.parks = response.data;
             },
             createPark() {

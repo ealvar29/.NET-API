@@ -37,22 +37,28 @@ namespace VueAPI
             services.AddScoped<INationalParkRepository, NationalParkRepository>();
             services.AddScoped<ITrailRepository, TrailRepository>();
             services.AddAutoMapper(typeof(ParkyMappings));
+            services.AddApiVersioning(options =>
+            {
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.ReportApiVersions = true;
+            });
             services.AddSwaggerGen(options => {
-                options.SwaggerDoc("ParkyOpenAPISpecNP",
+                options.SwaggerDoc("ParkyOpenAPISpec",
                  new Microsoft.OpenApi.Models.OpenApiInfo()
                  {
-                     Title = "Parky NationalPark API",
+                     Title = "Parky API",
                      Version = "1",
                      Description = "Swagger UI for NationalPark"
                  });
 
-                options.SwaggerDoc("ParkyOpenAPISpecTrails",
+                /*options.SwaggerDoc("ParkyOpenAPISpecTrails",
                  new Microsoft.OpenApi.Models.OpenApiInfo()
                  {
                      Title = "Parky Trails API",
                      Version = "1",
                      Description = "Swagger UI for Trails"
-                 });
+                 });*/
                 var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
                 options.IncludeXmlComments(cmlCommentsFullPath);
@@ -74,8 +80,8 @@ namespace VueAPI
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/ParkyOpenAPISpecNP/swagger.json", "Parky National Park API");
-                options.SwaggerEndpoint("/swagger/ParkyOpenAPISpecTrails/swagger.json", "Parky Trails API");
+                options.SwaggerEndpoint("/swagger/ParkyOpenAPISpec/swagger.json", "Parky API");
+                //options.SwaggerEndpoint("/swagger/ParkyOpenAPISpecTrails/swagger.json", "Parky Trails API");
             });
             app.UseRouting();
             app.UseSpaStaticFiles();
