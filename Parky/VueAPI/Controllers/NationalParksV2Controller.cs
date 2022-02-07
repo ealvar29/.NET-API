@@ -2,14 +2,15 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using VueAPI.Models;
 using VueAPI.Models.Dtos;
 using VueAPI.Repository.IRepository;
 
 namespace VueAPI.Controllers
 {
-    //[Route("api/[controller]")]
-    [Route("api/NationalParksV2")]
+    [Route("api/v{version:apiVersion}/nationalparks")]
+    [ApiVersion("2.0")]
     [ApiController]
     //[ApiExplorerSettings(GroupName = "ParkyOpenAPISpecNP")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -32,14 +33,8 @@ namespace VueAPI.Controllers
         [ProducesResponseType(200, Type = typeof(List<NationalParkDto>))]
         public IActionResult GetNationalParks()
         {
-            var nationalParks = _npRepo.GetNationalParks();
-            var nationalParksDto = new List<NationalParkDto>();
-            foreach (var park in nationalParksDto)
-            {
-                nationalParksDto.Add(_mapper.Map<NationalParkDto>(park));
-            }
-
-            return Ok(nationalParks);
+            var nationalParks = _npRepo.GetNationalParks().FirstOrDefault();
+            return Ok(_mapper.Map<NationalParkDto>(nationalParks));
         }
     }
 }

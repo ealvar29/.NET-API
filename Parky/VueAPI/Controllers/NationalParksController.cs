@@ -8,10 +8,8 @@ using VueAPI.Repository.IRepository;
 
 namespace VueAPI.Controllers
 {
-    //[Route("api/[controller]")]
-    [Route("api/NationalParks")]
+    [Route("api/v{version:apiVersion}/nationalparks")]
     [ApiController]
-    //[ApiExplorerSettings(GroupName = "ParkyOpenAPISpecNP")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class NationalParksController : Controller
     {
