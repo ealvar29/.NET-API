@@ -51,26 +51,6 @@ namespace VueAPI
                 options.DefaultApiVersion = new ApiVersion(1, 0);
                 options.ReportApiVersions = true;
             });
-           /* services.AddSwaggerGen(options => {
-                options.SwaggerDoc("ParkyOpenAPISpec",
-                 new Microsoft.OpenApi.Models.OpenApiInfo()
-                 {
-                     Title = "Parky API",
-                     Version = "1",
-                     Description = "Swagger UI for NationalPark"
-                 });
-
-                *//*options.SwaggerDoc("ParkyOpenAPISpecTrails",
-                 new Microsoft.OpenApi.Models.OpenApiInfo()
-                 {
-                     Title = "Parky Trails API",
-                     Version = "1",
-                     Description = "Swagger UI for Trails"
-                 });*//*
-                var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
-                options.IncludeXmlComments(cmlCommentsFullPath);
-            });*/
             services.AddControllers();
             services.AddSpaStaticFiles(configuration =>
             {

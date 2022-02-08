@@ -9,6 +9,7 @@ using VueAPI.Repository.IRepository;
 namespace VueAPI.Controllers
 {
     [Route("api/v{version:apiVersion}/nationalparks")]
+    //[Route("api/[controller]")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class NationalParksController : Controller
@@ -86,7 +87,8 @@ namespace VueAPI.Controllers
                 ModelState.AddModelError("", $"Something went wrong when saving the record {nationalParkObject.Name}");
                 return StatusCode(500, ModelState);
             }
-            return CreatedAtRoute("GetNationalPark", new { nationalParkId = nationalParkObject.Id }, nationalParkObject);
+            return CreatedAtRoute("GetNationalPark", new {version=HttpContext.GetRequestedApiVersion().ToString(),
+                                                          nationalParkId = nationalParkObject.Id }, nationalParkObject);
         }
 
         [HttpPatch("{nationalParkId:int}", Name = "UpdateNationalPark")]

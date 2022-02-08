@@ -10,6 +10,7 @@ using VueAPI.Repository.IRepository;
 namespace VueAPI.Controllers
 {
     [Route("api/v{version:apiVersion}/nationalparks")]
+    //[Route("api/[controller]")]
     [ApiVersion("2.0")]
     [ApiController]
     //[ApiExplorerSettings(GroupName = "ParkyOpenAPISpecNP")]

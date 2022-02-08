@@ -9,6 +9,7 @@ using VueAPI.Repository.IRepository;
 namespace VueAPI.Controllers
 {
     [Route("api/v{version:apiVersion}/trails")]
+    //[Route("api/[controller]")]
     [ApiController]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class TrailsController : Controller
@@ -58,6 +59,25 @@ namespace VueAPI.Controllers
             }
             var trailDto = _mapper.Map<TrailDto>(trail);
             return Ok(trailDto);
+        }
+
+        [HttpGet("GetTrailInNationalPark/{nationalParkId:int}")]
+        [ProducesResponseType(200, Type = typeof(TrailDto))]
+        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        public IActionResult GetTrailInNationalPark(int nationalParkId)
+        {
+            var objectList = _trailRepo.GetTrailsInNationalPark(nationalParkId);
+            if (objectList == null)
+            {
+                return NotFound();
+            }
+            var objectDto = new List<TrailDto>();
+            foreach (var obj in objectList)
+            {
+                objectDto.Add(_mapper.Map<TrailDto>(obj));
+            }
+            return Ok(objectDto);
         }
 
         [HttpPost]
