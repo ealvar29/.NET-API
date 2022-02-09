@@ -1,7 +1,7 @@
 ﻿<template>
-    <h1 id="tableLabel">National Parks</h1>
+    <h1 id="tableLabel">National Park Trails</h1>
 
-    <p>This component demonstrates fetching National Parks from the C# server.</p>
+    <p>This component demonstrates fetching National Park Trails from the C# Controller.</p>
 
     <p v-if="!parks"><em>Loading...</em></p>
 
@@ -9,7 +9,7 @@
         <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
-                    Name of National Park:
+                    Name of National Park Trail:
                 </label>
                 <input v-model="name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" >
             </div>
@@ -84,7 +84,7 @@
     import axios from 'axios'
     import moment from 'moment'
     export default {
-        name: "FetchParks",
+        name: "FetchTrails",
         mounted() {
             this.getNationalParks();
         },
@@ -92,9 +92,10 @@
             return {
                 parks: [],
                 name: '',
-                state: '',
+                distance: 0,
+                difficulty: 0,
+                nationalParkId: 0,
                 created: null,
-                established: null
             }
         },
         methods: {
