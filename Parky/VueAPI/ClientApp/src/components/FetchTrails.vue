@@ -3,7 +3,7 @@
 
     <p>This component demonstrates fetching National Park Trails from the C# Controller.</p>
 
-    <p v-if="!parks"><em>Loading...</em></p>
+    <p v-if="!trails"><em>Loading...</em></p>
 
     <form class="w-full max-w-lg inline-block p-10" @submit.prevent="onSubmit">
         <div class="flex flex-wrap -mx-3 mb-6">
@@ -45,7 +45,7 @@
 
     </form>
 
-    <table class='table table-striped' aria-labelledby="tableLabel" v-if="parks">
+    <table class='table table-striped' aria-labelledby="tableLabel" v-if="trails">
         <thead>
             <tr>
                 <th>Id</th>
@@ -116,7 +116,7 @@
                     }).catch(e => {
                         console.log(e);
                     });
-                this.$emit('', newPark);
+                this.$emit('', newTrail);
                 this.name = '';
                 this.state = '';
                 this.created = null;
@@ -124,7 +124,7 @@
             },
           async getTrails() {
                 const response = await axios.get('api/v1/trails');
-                this.parks = response.data;
+                this.trails = response.data;
             },
             createPark() {
             // Simple POST request with a JSON body using axios
@@ -134,12 +134,11 @@
                     "created": "2019-12-09",
                     "established": "2019-12-08"
                 };
-                console.log(article)
                 axios.post("/api/trails", trail)
                     .then(response => {
                         console.log(response);
                         console.log('Submit Success');
-                        this.getNationalParks();
+                        this.getTrails();
                 }).catch(e => {
                     console.log(e);
                 });
