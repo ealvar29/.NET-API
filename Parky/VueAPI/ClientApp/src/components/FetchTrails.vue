@@ -49,21 +49,23 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>National Park</th>
-                <th>State</th>
-                <th>Created</th>
-                <th>Established</th>
+                <th>National Park Trail</th>
+                <th>National Park Id</th>
+                <th>Distance</th>
+                <th>Difficulty</th>
+                <th>Date Created</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="park of parks" :key="park.id">
-                <td>{{ park.id }}</td>
-                <td>{{ park.name }}</td>
-                <td>{{ park.state }}</td>
-                <td>{{ getHumanDate(park.created) }}</td>
-                <td>{{ getHumanDate(park.established) }}</td>
+            <tr v-for="trail of trails" :key="trail.id">
+                <td>{{ trail.id }}</td>
+                <td>{{ trail.name }}</td>
+                <td>{{ trail.nationalparkid }}</td>
+                <td>{{ trail.distance }}</td>
+                <td>{{ trail.difficulty }}</td>
+                <td>{{ getHumanDate(trail.created) }}</td>
                 <td>
                     <button class="bg-indigo-400 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded">
                         Edit
@@ -86,11 +88,11 @@
     export default {
         name: "FetchTrails",
         mounted() {
-            this.getNationalParks();
+            this.getTrails();
         },
         data() {
             return {
-                parks: [],
+                trails: [],
                 name: '',
                 distance: 0,
                 difficulty: 0,
@@ -100,17 +102,17 @@
         },
         methods: {
             onSubmit() {
-                let newPark = {
+                let newTrail = {
                     name: this.name,
                     state: this.state,
                     created: this.created,
                     established: this.established
                 }
-                axios.post("/nationalparks", newPark)
+                axios.post("/nationalparks", newTrail)
                     .then(response => {
                         console.log(response);
                         console.log('Submit Success');
-                        this.getNationalParks();
+                        this.getTrails();
                     }).catch(e => {
                         console.log(e);
                     });
@@ -120,20 +122,20 @@
                 this.created = null;
                 this.established = null;
             },
-          async getNationalParks() {
-                const response = await axios.get('api/v1/nationalparks');
+          async getTrails() {
+                const response = await axios.get('api/v1/trails');
                 this.parks = response.data;
             },
             createPark() {
             // Simple POST request with a JSON body using axios
-                const article = {
+                const trail = {
                     "name": "ILL",
                     "state": "Illinois",
                     "created": "2019-12-09",
                     "established": "2019-12-08"
                 };
                 console.log(article)
-                axios.post("/nationalparks", article)
+                axios.post("/api/trails", trail)
                     .then(response => {
                         console.log(response);
                         console.log('Submit Success');
@@ -154,7 +156,7 @@
                     }).catch(e => {
                         console.log(e);
                     });
-                this.getNationalParks();
+                this.getTrails();
             }
         }
     }
