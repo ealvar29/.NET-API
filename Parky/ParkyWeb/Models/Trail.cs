@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using static VueAPI.Models.Trail;
 
-namespace VueAPI.Models.Dtos
+namespace ParkyWeb.Models
 {
-    public class TrailDto
+    public class Trail
     {
         public int Id { get; set; }
 
@@ -13,11 +12,14 @@ namespace VueAPI.Models.Dtos
         [Required]
         public double Distance { get; set; }
 
+        public enum DifficultyType { Easy, Moderate, Difficult, Expert }
+
         public DifficultyType Difficulty { get; set; }
 
         [Required]
         public int NationalParkId { get; set; }
 
-        public NationalParkDto NationalPark { get; set; }
+        public NationalPark NationalPark { get; set; }
+
     }
 }
